@@ -1,0 +1,6 @@
+{
+  "name": "AegisPass",
+  "description": "Privacy-first password security toolkit for cryptographic generation, mathematical entropy analysis, breach verification, and locally encrypted vault management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
