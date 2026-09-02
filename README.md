@@ -1,10 +1,10 @@
 🔐 AegisPass
 
-Privacy-first password security toolkit for generating, analyzing, validating, and securely managing passwords.
+Privacy-first password security toolkit for generating, analyzing, validating, and managing passwords with password history locally.
 
    
 
-> AegisPass helps users create stronger passwords while making password security understandable — without requiring an account or sending plaintext passwords to a server.
+ AegisPass helps users create stronger passwords while making password security understandable — without requiring an account or sending plaintext passwords to a server.
 
 
 
@@ -17,13 +17,13 @@ Privacy-first password security toolkit for generating, analyzing, validating, a
 
 Most password generators stop at:
 
-> "Here's a strong password."
+ "Here's a strong password."
 
 
 
 AegisPass goes further.
 
-It is a security-focused password toolkit that helps users generate, understand, analyze, validate, and securely manage passwords while keeping sensitive operations client-side wherever practical.
+It is a security-focused password toolkit that helps users generate, understand, analyze, validate, and manage passwords with password history locally while keeping sensitive operations client-side wherever practical.
 
 The project combines:
 
@@ -37,7 +37,7 @@ The project combines:
 
 🌐 Privacy-preserving breach verification
 
-🔒 Encrypted local password vault
+🔒 Local password history vault
 
 📚 Security education
 
@@ -101,7 +101,7 @@ Password generation uses the browser's Web Crypto capabilities rather than gener
 
 AegisPass does not rely only on labels such as:
 
-> Weak / Medium / Strong
+ Weak / Medium / Strong
 
 
 
@@ -162,13 +162,13 @@ Breach exposure verification
 
 Instead of simply saying:
 
-> "Your password is strong."
+ "Your password is strong."
 
 
 
 AegisPass helps answer:
 
-> "What makes this password strong or weak?"
+ "What makes this password strong or weak?"
 
 
 
@@ -233,7 +233,7 @@ Instead, the application uses a hashed-prefix/range-query approach where only a 
 
 Privacy principle
 
-> The password itself should never need to be transmitted to perform a breach lookup.
+ The password itself should never need to be transmitted to perform a breach lookup.
 
 
 
@@ -242,17 +242,17 @@ This minimizes unnecessary exposure of sensitive credentials during breach verif
 
 ---
 
-🔒 6. Encrypted Vault & History
+---
 
-AegisPass provides a local vault for securely managing saved passwords.
+🔐 6. Local Password Vault & History
+
+AegisPass provides a local vault for managing passwords saved from the Generator.
 
 Features
 
-Master-password protection
+Local password history
 
-Client-side encrypted storage
-
-Unlock / lock workflow
+Master-password unlock experience
 
 Reveal password
 
@@ -260,17 +260,13 @@ Copy password
 
 Delete saved credentials
 
-Encrypted backup workflow
+Lock / unlock workflow
 
 Local credential management
 
+The vault is designed around a local-first approach, keeping saved password history within the user's browser rather than requiring a centralized password database.
 
-The vault uses browser cryptographic APIs for key derivation and encryption rather than treating encoding methods such as Base64 as encryption.
-
-The master password is required to derive the key used to unlock protected vault data.
-
-> If the master password is forgotten, AegisPass cannot recover it.
-
+This project is a portfolio implementation and has not undergone an independent security audit.
 
 
 
@@ -353,14 +349,14 @@ AegisPass is organized into eight focused experiences:
 
 Screen	Purpose
 
-🏠 Home	Introduces AegisPass and its privacy-first philosophy
-👤 Welcome	Personalizes the experience based on the user's name and selected purpose
-⚡ Generator	Creates cryptographically secure passwords
-🔎 Checker	Analyzes password strength, patterns, and breach exposure
-🛡️ Validator	Tests passwords against configurable security policies
-🔐 Vault & History	Protects and manages locally stored credentials
-💡 Tips	Teaches practical password-security principles
-🌌 About	Explains the project's architecture and security principles
+🏠 Home : Introduces AegisPass and its privacy-first philosophy
+👤 Welcome : Personalizes the experience based on the user's name and selected purpose
+⚡ Generator :	Creates cryptographically secure passwords
+🔎 Checker : Analyzes password strength, patterns, and breach exposure
+🛡️ Validator :	Tests passwords against configurable security policies
+🔐 Vault & History : Stores and manages password history locally
+💡 Tips	: Teaches practical password-security principles
+🌌 About :	Explains the project's architecture and security principles
 
 
 
@@ -418,7 +414,7 @@ Evaluate passwords against configurable security requirements with live pass/fai
 
 🔐 Vault & History
 
-Manage locally protected credentials through an encrypted vault workflow.
+Manage saved password history through a local vault experience with reveal, copy, delete, and lock/unlock interactions.
 
 <img width="899" height="1599" alt="History" src="https://github.com/user-attachments/assets/6042d44a-e3bd-4aa6-b5ab-51cb5c1c53b2" />
 
@@ -497,22 +493,13 @@ The breach-checking workflow follows a hashed-prefix/range-query model so that p
 
 ---
 
-Client-Side Encryption
+---
 
-The Vault uses browser cryptographic primitives for:
+Local-First Credential Storage
 
-Key derivation
+The Vault is designed around browser-local storage so password history can be managed without requiring a centralized account or password database.
 
-Encryption
-
-Decryption
-
-Protected local storage
-
-
-Sensitive vault data is designed to remain within the user's browser environment.
-
-
+Sensitive password operations are intended to remain within the user's browser whenever practical.
 ---
 
 🏗️ Architecture
@@ -534,8 +521,8 @@ AegisPass follows a client-focused architecture:
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│ Web Crypto API  │     │ Entropy / Rules │     │ Local Encrypt   │
-│ (getRandomVals) │     │ (Math & Policy) │     │ (PBKDF2/AES-GCM)│
+│ Web Crypto API  │     │ Entropy / Rules │     │ Local Storage   │
+│ (getRandomVals) │     │ (Math & Policy) │     │ & Vault  State  |           
 └────────┬────────┘     └────────┬────────┘     └────────┬────────┘
          │                       │                       │
          └───────────────────────┼───────────────────────┘
@@ -543,7 +530,6 @@ AegisPass follows a client-focused architecture:
                                  ▼
               ┌─────────────────────────────────────┐
               │    Browser / Local Environment      │
-              │  (Plaintext Password Not Transmitted Remotely)│
               └─────────────────────────────────────┘
 ```
 > Sensitive password operations should happen locally whenever practical.
@@ -576,10 +562,6 @@ crypto.getRandomValues()
 
 Cryptographic hashing
 
-PBKDF2-based key derivation
-
-AES-GCM encryption
-
 Client-side storage
 
 
@@ -605,7 +587,7 @@ Plaintext passwords should remain client-side whenever possible.
 
 2. Use established cryptographic primitives
 
-Security-sensitive randomness, key derivation, and encryption rely on browser cryptographic APIs rather than custom cryptographic algorithms.
+Security-sensitive operations use browser cryptographic APIs rather than custom cryptographic algorithms wherever implemented.
 
 3. Make security explainable
 
@@ -657,11 +639,11 @@ A hashed-prefix/range-query approach addresses this requirement.
 
 ---
 
-Challenge 3 — Secure local credential storage
+Challenge 3 — Designing local credential storage
 
-The Vault required actual cryptographic protection rather than simple encoding.
+The Vault was designed to provide a convenient way to save and manage generated passwords locally while keeping the experience account-free.
 
-The implementation uses password-derived key material and authenticated encryption through browser cryptographic APIs.
+This required balancing persistence, usability, local storage, and the security expectations of a password-management interface.
 
 
 ---
@@ -677,9 +659,7 @@ AegisPass therefore provides configurable policies and purpose-aware recommendat
 
 Challenge 5 — Designing understandable security UX
 
-Concepts such as entropy, search space, encryption, and k-anonymity can be difficult for non-technical users.
-
-AegisPass translates these concepts into interactive metrics, explanations, and visual feedback.
+Concepts such as entropy, search space, privacy-preserving breach checks, and password security can be difficult for non-technical users.
 
 
 ---
@@ -775,7 +755,7 @@ Entropy and search-space mathematics
 
 Password-security concepts
 
-Client-side encryption
+Browser security APIs
 
 Privacy-preserving data handling
 
@@ -832,5 +812,5 @@ GitHub: https://github.com/sinchana-g7/AegisPass
 
 Built with a simple principle:
 
-> Your security should be understandable.
+ Your security should be understandable.
 Your passwords should stay yours.
