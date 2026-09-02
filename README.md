@@ -543,7 +543,7 @@ AegisPass follows a client-focused architecture:
                                  ▼
               ┌─────────────────────────────────────┐
               │    Browser / Local Environment      │
-              │  (Zero Plaintext Remote Transmission)│
+              │  (Plaintext Password Not Transmitted Remotely)│
               └─────────────────────────────────────┘
 ```
 > Sensitive password operations should happen locally whenever practical.
