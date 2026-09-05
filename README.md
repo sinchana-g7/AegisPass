@@ -434,7 +434,7 @@ Explore practical password-security principles and interactive security insights
 
 🌌 About AegisPass
 
-Explore the project's privacy principles, cryptographic architecture, and security foundations.
+Explore the project's privacy principles, browser security APIs, and security foundations.
 
 <img width="899" height="1599" alt="About" src="https://github.com/user-attachments/assets/b783b45a-d6db-44ce-9219-23045ec4a0f2" />
 
@@ -687,8 +687,6 @@ Policy validation
 Hash generation
 
 Breach lookup behavior
-
-Encryption and decryption
 
 Incorrect master-password handling
 
