@@ -532,6 +532,7 @@ AegisPass follows a client-focused architecture:
               │    Browser / Local Environment      │
               └─────────────────────────────────────┘
 ```
+
 > Sensitive password operations should happen locally whenever practical.
 
 
