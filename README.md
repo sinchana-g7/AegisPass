@@ -507,30 +507,31 @@ Sensitive password operations are intended to remain within the user's browser w
 AegisPass follows a client-focused architecture:
 
 ```text
-   ┌─────────────────────┐
-                         │      AegisPass       │
-                         │      Web Client      │
-                         └──────────┬──────────┘
-                                    │
-               ┌────────────────────┼────────────────────┐
-               │                    │                    │
-               ▼                    ▼                    ▼
-        ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
-        │Password Engine│    │Security Engine│    │  Vault Engine │
-        └───────┬───────┘    └───────┬───────┘    └───────┬───────┘
-                │                    │                    │
-                ▼                    ▼                    ▼
-        ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
-        │ Web Crypto API│    │Entropy & Rules│    │ Local Storage │
-        │getRandomValues│    │Math & Policies│    │ & Vault State │
-        └───────┬───────┘    └───────┬───────┘    └───────┬───────┘
-                │                    │                    │
-                └────────────────────┼────────────────────┘
-                                     │
-                                     ▼
-                    ┌─────────────────────────────┐
-                    │  Browser / Local Environment│
-                    └─────────────────────────────┘
+                        +-------------------+
+                      |     AegisPass     |
+                      |    Web Client     |
+                      +---------+---------+
+                                |
+         +----------------------+----------------------+
+         |                      |                      |
+         v                      v                      v
++-----------------+    +-----------------+    +-----------------+
+| Password Engine |    | Security Engine |    |  Vault Engine   |
++--------+--------+    +--------+--------+    +--------+--------+
+         |                      |                      |
+         v                      v                      v
++-----------------+    +-----------------+    +-----------------+
+| Web Crypto API  |    | Entropy & Rules |    |  Local Storage  |
+| getRandomValues |    | Math & Policies |    |  & Vault State  |
++--------+--------+    +--------+--------+    +--------+--------+
+         |                      |                      |
+         +----------------------+----------------------+
+                                |
+                                v
+                +-------------------------------+
+                |  Browser / Local Environment  |
+                +-------------------------------+
+
 ```                        
 
 > Sensitive password operations should happen locally whenever practical.
