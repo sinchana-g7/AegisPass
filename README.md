@@ -506,20 +506,32 @@ Sensitive password operations are intended to remain within the user's browser w
 
 AegisPass follows a client-focused architecture:
 
-flowchart TB
-    A["AegisPass<br/>Web Client"]
-
-    A --> P["Password Engine"]
-    A --> S["Security Engine"]
-    A --> V["Vault Engine"]
-
-    P --> PC["Web Crypto API<br/>crypto.getRandomValues()"]
-    S --> SC["Entropy & Rules<br/>Math & Policies"]
-    V --> VC["Local Storage<br/>& Vault State"]
-
-    PC --> E["Browser / Local Environment"]
-    SC --> E
-    VC --> E
+```text
+                           ┌─────────────────────┐
+                         │      AegisPass       │
+                         │      Web Client      │
+                         └──────────┬──────────┘
+                                    │
+               ┌────────────────────┼────────────────────┐
+               │                    │                    │
+               ▼                    ▼                    ▼
+        ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+        │Password Engine│    │Security Engine│    │  Vault Engine │
+        └───────┬───────┘    └───────┬───────┘    └───────┬───────┘
+                │                    │                    │
+                ▼                    ▼                    ▼
+        ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+        │ Web Crypto API│    │Entropy & Rules│    │ Local Storage │
+        │getRandomValues│    │Math & Policies│    │ & Vault State │
+        └───────┬───────┘    └───────┬───────┘    └───────┬───────┘
+                │                    │                    │
+                └────────────────────┼────────────────────┘
+                                     │
+                                     ▼
+                    ┌─────────────────────────────┐
+                    │  Browser / Local Environment│
+                    └─────────────────────────────┘
+```
 
 > Sensitive password operations should happen locally whenever practical.
 
