@@ -507,7 +507,7 @@ Sensitive password operations are intended to remain within the user's browser w
 AegisPass follows a client-focused architecture:
 
 ```text
-                           ┌─────────────────────┐
+   ┌─────────────────────┐
                          │      AegisPass       │
                          │      Web Client      │
                          └──────────┬──────────┘
@@ -531,7 +531,7 @@ AegisPass follows a client-focused architecture:
                     ┌─────────────────────────────┐
                     │  Browser / Local Environment│
                     └─────────────────────────────┘
-```
+```                        
 
 > Sensitive password operations should happen locally whenever practical.
 
